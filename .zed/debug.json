@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Debug UserService",
+    "adapter": "netcoredbg",
+    "request": "launch",
+    "program": "${ZED_WORKTREE_ROOT}/InnoShop.UserService/bin/Debug/net10.0/InnoShop.UserService.dll",
+    "cwd": "${ZED_WORKTREE_ROOT}/InnoShop.UserService",
+    "build": {
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${ZED_WORKTREE_ROOT}/InnoShop.UserService/InnoShop.UserService.csproj"
+      ]
+    }
+  },
+  {
+    "label": "Debug ProductService",
+    "adapter": "netcoredbg",
+    "request": "launch",
+    "program": "${ZED_WORKTREE_ROOT}/InnoShop.ProductService/bin/Debug/net10.0/InnoShop.ProductService.dll",
+    "cwd": "${ZED_WORKTREE_ROOT}/InnoShop.ProductService",
+    "build": {
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${ZED_WORKTREE_ROOT}/InnoShop.ProductService/InnoShop.UserService.csproj"
+      ]
+    }
+  }
+]
