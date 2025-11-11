@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="InnoShop.ProductService/InnoShop.ProductService.csproj" />
+  <Project Path="InnoShop.UserService/InnoShop.UserService.csproj" />
+</Solution>

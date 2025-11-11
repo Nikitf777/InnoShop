@@ -1,0 +1,73 @@
+services:
+    users_db:
+        image: docker.io/postgres:18-alpine
+        restart: always
+        environment:
+            POSTGRES_DB: innoshopusers
+            POSTGRES_USER: userservice
+            POSTGRES_PASSWORD: users
+        ports:
+            - 5000:5432
+        networks:
+            - user_network
+
+    user_service:
+        build: InnoShop.UserService/
+        ports:
+            - 8000:5000
+        networks:
+            - user_network
+            - website_network
+        depends_on:
+            users_db:
+                condition: service_healthy
+        environment:
+            DB_HOST: users_db
+            DB_PORT: 5432
+            DB_NAME: innoshopusers
+            DB_USER: userservice
+            DB_PASSWORD: users
+
+    products_db:
+        image: docker.io/postgres:18-alpine
+        restart: always
+        environment:
+            POSTGRES_DB: innoshopproducts
+            POSTGRES_USER: productservice
+            POSTGRES_PASSWORD: products
+        ports:
+            - 5050:5432
+        networks:
+            - product_network
+
+    product_service:
+        build: InnoShop.ProductService/
+        ports:
+            - 8080:5000
+        networks:
+            - product_network
+            - website_network
+        depends_on:
+            products_db:
+                condition: service_healthy
+        environment:
+            DB_HOST: products_db
+            DB_PORT: 5432
+            DB_NAME: innoshopproducts
+            DB_USER: productservice
+            DB_PASSWORD: users
+
+    website:
+        build: innoshop-website-rs/
+        ports:
+            - 3000:3000
+        networks:
+            - website_network
+
+networks:
+    user_network:
+        driver: bridge
+    product_network:
+        driver: bridge
+    website_network:
+        driver: bridge

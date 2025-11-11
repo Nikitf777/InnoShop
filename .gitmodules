@@ -1,0 +1,9 @@
+[submodule "InnoShop.ProductService"]
+	path = InnoShop.ProductService
+	url = git@github.com:Nikitf777/InnoShop.ProductService.git
+[submodule "InnoShop.UserService"]
+	path = InnoShop.UserService
+	url = git@github.com:Nikitf777/InnoShop.UserService.git
+[submodule "innoshop-website-rs"]
+	path = innoshop-website-rs
+	url = git@github.com:Nikitf777/innoshop-website-rs.git
