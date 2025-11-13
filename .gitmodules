@@ -7,3 +7,6 @@
 [submodule "innoshop-website-rs"]
 	path = innoshop-website-rs
 	url = git@github.com:Nikitf777/innoshop-website-rs.git
+[submodule "InnoShop.CommonEnvironment"]
+	path = InnoShop.CommonEnvironment
+	url = git@github.com:Nikitf777/InnoShop.CommonEnvironment.git

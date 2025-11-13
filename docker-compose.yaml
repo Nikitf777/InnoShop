@@ -3,9 +3,9 @@ services:
         image: docker.io/postgres:18-alpine
         restart: always
         environment:
-            POSTGRES_DB: innoshopusers
-            POSTGRES_USER: userservice
-            POSTGRES_PASSWORD: users
+            POSTGRES_DB: ${USER_SERVICE_DB_NAME}
+            POSTGRES_USER: ${USER_SERVICE_DB_USER}
+            POSTGRES_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
         ports:
             - 5000:5432
         networks:
@@ -14,27 +14,26 @@ services:
     user_service:
         build: InnoShop.UserService/
         ports:
-            - 8000:5000
+            - 8000:8080
         networks:
             - user_network
-            - website_network
-        depends_on:
-            users_db:
-                condition: service_healthy
         environment:
-            DB_HOST: users_db
-            DB_PORT: 5432
-            DB_NAME: innoshopusers
-            DB_USER: userservice
-            DB_PASSWORD: users
+            DB_HOST: ${USER_SERVICE_DB_HOST}
+            DB_PORT: ${USER_SERVICE_DB_PORT}
+            DB_NAME: ${USER_SERVICE_DB_NAME}
+            DB_USER: ${USER_SERVICE_DB_USER}
+            DB_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
+            JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+            JWT_KEY_ISSUER: ${JWT_KEY_ISSUER}
+            JWT_KEY_AUDIENCE: ${JWT_KEY_AUDIENCE}
 
     products_db:
         image: docker.io/postgres:18-alpine
         restart: always
         environment:
-            POSTGRES_DB: innoshopproducts
-            POSTGRES_USER: productservice
-            POSTGRES_PASSWORD: products
+            POSTGRES_DB: ${PRODUCT_SERVICE_DB_NAME}
+            POSTGRES_USER: ${PRODUCT_SERVICE_DB_USER}
+            POSTGRES_PASSWORD: ${PRODUCT_SERVICE_DB_PASSWORD}
         ports:
             - 5050:5432
         networks:
@@ -43,31 +42,21 @@ services:
     product_service:
         build: InnoShop.ProductService/
         ports:
-            - 8080:5000
+            - 8080:8080
         networks:
             - product_network
-            - website_network
-        depends_on:
-            products_db:
-                condition: service_healthy
         environment:
-            DB_HOST: products_db
-            DB_PORT: 5432
-            DB_NAME: innoshopproducts
-            DB_USER: productservice
-            DB_PASSWORD: users
-
-    website:
-        build: innoshop-website-rs/
-        ports:
-            - 3000:3000
-        networks:
-            - website_network
+            DB_HOST: ${PRODUCT_SERVICE_DB_HOST}
+            DB_PORT: ${PRODUCT_SERVICE_DB_PORT}
+            DB_NAME: ${PRODUCT_SERVICE_DB_NAME}
+            DB_USER: ${PRODUCT_SERVICE_DB_USER}
+            DB_PASSWORD: ${PRODUCT_SERVICE_DB_PASSWORD}
+            JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+            JWT_KEY_ISSUER: ${JWT_KEY_ISSUER}
+            JWT_KEY_AUDIENCE: ${JWT_KEY_AUDIENCE}
 
 networks:
     user_network:
         driver: bridge
     product_network:
-        driver: bridge
-    website_network:
         driver: bridge
