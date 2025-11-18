@@ -1,9 +1,9 @@
 services:
-    users_db:
+    &users_db_name users_db:
         image: docker.io/postgres:18-alpine
         restart: always
         environment:
-            POSTGRES_DB: ${USER_SERVICE_DB_NAME}
+            POSTGRES_DB: *users_db_name
             POSTGRES_USER: ${USER_SERVICE_DB_USER}
             POSTGRES_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
         ports:
@@ -18,20 +18,20 @@ services:
         networks:
             - user_network
         environment:
-            DB_HOST: ${USER_SERVICE_DB_HOST}
+            DB_HOST: *users_db_name
             DB_PORT: ${USER_SERVICE_DB_PORT}
-            DB_NAME: ${USER_SERVICE_DB_NAME}
+            DB_NAME: *users_db_name
             DB_USER: ${USER_SERVICE_DB_USER}
             DB_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
             JWT_SECRET_KEY: ${JWT_SECRET_KEY}
             JWT_KEY_ISSUER: ${JWT_KEY_ISSUER}
             JWT_KEY_AUDIENCE: ${JWT_KEY_AUDIENCE}
 
-    products_db:
+    &products_db_name products_db:
         image: docker.io/postgres:18-alpine
         restart: always
         environment:
-            POSTGRES_DB: ${PRODUCT_SERVICE_DB_NAME}
+            POSTGRES_DB: *products_db_name
             POSTGRES_USER: ${PRODUCT_SERVICE_DB_USER}
             POSTGRES_PASSWORD: ${PRODUCT_SERVICE_DB_PASSWORD}
         ports:
@@ -46,9 +46,9 @@ services:
         networks:
             - product_network
         environment:
-            DB_HOST: ${PRODUCT_SERVICE_DB_HOST}
+            DB_HOST: *products_db_name
             DB_PORT: ${PRODUCT_SERVICE_DB_PORT}
-            DB_NAME: ${PRODUCT_SERVICE_DB_NAME}
+            DB_NAME: *products_db_name
             DB_USER: ${PRODUCT_SERVICE_DB_USER}
             DB_PASSWORD: ${PRODUCT_SERVICE_DB_PASSWORD}
             JWT_SECRET_KEY: ${JWT_SECRET_KEY}
