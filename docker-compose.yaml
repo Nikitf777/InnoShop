@@ -7,7 +7,7 @@ services:
             POSTGRES_USER: ${USER_SERVICE_DB_USER}
             POSTGRES_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
         ports:
-            - 5000:5432
+            - 5000:${DB_PORT}
         networks:
             - user_network
         healthcheck:
@@ -25,7 +25,7 @@ services:
             - user_network
         environment:
             DB_HOST: *users_db_name
-            DB_PORT: ${USER_SERVICE_DB_PORT}
+            DB_PORT: ${DB_PORT}
             DB_NAME: ${USER_SERVICE_DB_NAME}
             DB_USER: ${USER_SERVICE_DB_USER}
             DB_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
@@ -44,7 +44,7 @@ services:
             POSTGRES_USER: ${PRODUCT_SERVICE_DB_USER}
             POSTGRES_PASSWORD: ${PRODUCT_SERVICE_DB_PASSWORD}
         ports:
-            - 5050:5432
+            - 5050:${DB_PORT}
         networks:
             - product_network
         healthcheck:
@@ -62,7 +62,7 @@ services:
             - product_network
         environment:
             DB_HOST: *products_db_name
-            DB_PORT: ${PRODUCT_SERVICE_DB_PORT}
+            DB_PORT: ${DB_PORT}
             DB_NAME: ${PRODUCT_SERVICE_DB_NAME}
             DB_USER: ${PRODUCT_SERVICE_DB_USER}
             DB_PASSWORD: ${PRODUCT_SERVICE_DB_PASSWORD}
