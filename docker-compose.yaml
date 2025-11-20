@@ -1,7 +1,7 @@
 services:
     &users_db_name users_db:
         image: docker.io/postgres:18-alpine
-        restart: always
+        restart: no
         environment:
             POSTGRES_DB: *users_db_name
             POSTGRES_USER: ${USER_SERVICE_DB_USER}
@@ -19,6 +19,7 @@ services:
 
     user_service:
         build: InnoShop.UserService/
+        restart: no
         ports:
             - 8000:8080
         networks:
@@ -38,7 +39,7 @@ services:
 
     &products_db_name products_db:
         image: docker.io/postgres:18-alpine
-        restart: always
+        restart: no
         environment:
             POSTGRES_DB: *products_db_name
             POSTGRES_USER: ${PRODUCT_SERVICE_DB_USER}
@@ -56,6 +57,7 @@ services:
 
     product_service:
         build: InnoShop.ProductService/
+        restart: no
         ports:
             - 8080:8080
         networks:
